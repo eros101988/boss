@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ShoppingCart, Info } from 'lucide-react';
 import { products } from '../data/store';
@@ -11,22 +11,43 @@ export default function ProductDetail() {
   
   const product = products.find(p => p.id === decodeURIComponent(id || ''));
   
-  const [selectedImage, setSelectedImage] = useState(product?.images[0]?.path || '');
+  const hasSpecs = product?.specs && product.specs.length > 0;
+  const [selectedSpecId, setSelectedSpecId] = useState(hasSpecs ? product.specs[0].id : '');
+  
+  const selectedSpec = hasSpecs ? product.specs.find(s => s.id === selectedSpecId) : null;
+  
+  // Combine images depending on whether it has specs
+  const displayImages = hasSpecs 
+    ? [...(selectedSpec?.images || []), ...(product.shared_images || [])].sort((a, b) => (a.order || 0) - (b.order || 0))
+    : product?.images || [];
+
+  const [selectedImage, setSelectedImage] = useState(displayImages[0]?.path || '');
   const [quantity, setQuantity] = useState(1);
   const [showSuccess, setShowSuccess] = useState(false);
+
+  // Update selected image when spec changes
+  useEffect(() => {
+    if (displayImages.length > 0) {
+      setSelectedImage(displayImages[0].path);
+    }
+  }, [selectedSpecId, product]);
 
   if (!product) {
     return <div className="p-8 text-center">商品不存在</div>;
   }
 
   const handleAdd = () => {
+    const specName = selectedSpec ? `${selectedSpec.label} (${selectedSpec.size})` : '標準規格';
+    // For new products, order_unit is not in the json directly on variant, but let's use '盒' or '件'
+    const unit = selectedSpec ? '盒' : '件';
+
     addItem({
-      id: product.id,
+      id: `${product.id}-${selectedSpecId || 'default'}`,
       productId: product.id,
       productName: product.name,
-      spec: '標準規格',
+      spec: specName,
       quantity,
-      unit: '件' // TODO: extract from data if possible
+      unit
     });
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 3000);
@@ -51,15 +72,15 @@ export default function ProductDetail() {
               )}
             </div>
             
-            {product.images.length > 1 && (
+            {displayImages.length > 1 && (
               <div className="grid grid-cols-4 gap-2">
-                {product.images.map((img, idx) => (
+                {displayImages.map((img, idx) => (
                   <button
                     key={idx}
                     onClick={() => setSelectedImage(img.path)}
                     className={`aspect-w-1 aspect-h-1 rounded-md overflow-hidden border-2 transition ${selectedImage === img.path ? 'border-primary-500' : 'border-transparent hover:border-primary-300'}`}
                   >
-                    <img src={img.path} alt={img.role} className="w-full h-full object-cover" />
+                    <img src={img.path} alt={img.role || '商品圖片'} className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>
@@ -81,13 +102,42 @@ export default function ProductDetail() {
               </div>
             </div>
 
+            {hasSpecs && (
+              <div className="mb-6">
+                <h3 className="text-sm font-bold text-slate-700 mb-2">規格選擇</h3>
+                <div className="flex flex-wrap gap-2">
+                  {product.specs.map(spec => (
+                    <button
+                      key={spec.id}
+                      onClick={() => setSelectedSpecId(spec.id)}
+                      className={`px-4 py-2 border rounded-md text-sm font-medium transition ${
+                        selectedSpecId === spec.id 
+                          ? 'border-primary-600 bg-primary-50 text-primary-700' 
+                          : 'border-slate-300 bg-white text-slate-700 hover:border-primary-400'
+                      }`}
+                    >
+                      {spec.label} ({spec.size})
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div className="flex-grow">
               <h3 className="text-lg font-bold mb-2">商品說明</h3>
-              <ul className="space-y-2 text-slate-600 text-sm mb-6">
-                {product.images.map((img, idx) => (
-                  <li key={idx}>• {img.role} {img.note && `(${img.note})`}</li>
-                ))}
-              </ul>
+              {hasSpecs && selectedSpec ? (
+                <ul className="space-y-2 text-slate-600 text-sm mb-6">
+                  <li>• 尺寸：{selectedSpec.dimensions.join(' x ')} cm</li>
+                  <li>• 每盒張數：{selectedSpec.sheets_per_box} 張</li>
+                  <li>• 條碼：{selectedSpec.barcode}</li>
+                </ul>
+              ) : (
+                <ul className="space-y-2 text-slate-600 text-sm mb-6">
+                  {displayImages.map((img: any, idx) => (
+                    <li key={idx}>• {img.role} {img.note && `(${img.note})`}</li>
+                  ))}
+                </ul>
+              )}
             </div>
 
             <div className="mt-auto border-t border-slate-100 pt-6">
@@ -104,7 +154,7 @@ export default function ProductDetail() {
                   />
                   <button onClick={() => setQuantity(quantity + 1)} className="px-3 py-1 hover:bg-slate-100 text-slate-600">+</button>
                 </div>
-                <span className="ml-3 text-slate-500">件</span>
+                <span className="ml-3 text-slate-500">{hasSpecs ? '盒' : '件'}</span>
               </div>
 
               <div className="flex space-x-4">

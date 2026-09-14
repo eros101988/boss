@@ -74,10 +74,10 @@ export default function Home() {
 
       {/* About Section Teaser */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-6 text-slate-900">關於佑安企業</h2>
+        <h2 className="text-3xl font-bold mb-6 text-slate-900">關於侑安國際有限公司</h2>
         <p className="text-lg text-slate-600 max-w-3xl mx-auto mb-8">
-          我們致力於提供優質的免洗用品與清潔袋，服務無數餐飲業、企業與經銷商。
-          從產品挑選到售後服務，我們始終秉持專業與熱誠。
+          以品質立信，以服務致遠。我們提供台塑原料專業經銷、免洗餐具包材、客製化包材服務。
+          為什麼選擇我們：專業、穩定、長期。
         </p>
         <Link to="/about" className="inline-flex items-center text-primary-600 font-medium hover:text-primary-700">
           了解更多公司資訊 <ArrowRight className="ml-1 w-4 h-4" />

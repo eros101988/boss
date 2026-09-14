@@ -67,7 +67,8 @@ export default function ProductList() {
           {/* Product Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProducts.map(product => {
-              const coverImg = product.images[0]?.path || '';
+              const hasSpecs = product.specs && product.specs.length > 0;
+              const coverImg = hasSpecs ? (product.specs[0]?.images?.[0]?.path || product.shared_images?.[0]?.path) : (product.images[0]?.path || '');
               return (
                 <Link key={product.id} to={`/products/${encodeURIComponent(product.id)}`} className="group bg-white rounded-xl shadow-sm border border-slate-100 hover:shadow-md hover:border-primary-200 overflow-hidden flex flex-col">
                   <div className="aspect-w-1 aspect-h-1 w-full bg-slate-100 relative">

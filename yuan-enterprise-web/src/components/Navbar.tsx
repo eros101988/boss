@@ -11,7 +11,7 @@ export default function Navbar() {
         <div className="flex justify-between h-16 items-center">
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="text-xl font-bold tracking-wider">
-              佑安企業<span className="text-primary-100 text-sm ml-2">包裝與清潔用品</span>
+              侑安國際<span className="text-primary-100 text-sm ml-2">包裝與清潔用品</span>
             </Link>
           </div>
           

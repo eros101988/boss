@@ -6,9 +6,10 @@ export default function About() {
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
         
         <div className="bg-primary-900 text-white p-8 md:p-12 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">關於佑安企業 (名稱待確認)</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-4">關於侑安國際有限公司</h1>
           <p className="text-primary-100 max-w-2xl mx-auto">
-            我們是專業的免洗用品與清潔袋供應商，致力於為各行各業提供高品質、價格合理的包裝與清潔解決方案。
+            以品質立信，以服務致遠<br/>
+            台塑原料專業經銷、免洗餐具包材、客製化包材服務。為什麼選擇我們：專業、穩定、長期。
           </p>
         </div>
 
@@ -55,7 +56,16 @@ export default function About() {
                   <Phone className="w-6 h-6 text-primary-600 mr-4 flex-shrink-0" />
                   <div>
                     <h3 className="font-bold text-slate-900">電話</h3>
-                    <p className="text-slate-600 mt-1">[待補真實電話]</p>
+                    <p className="text-slate-600 mt-1">02-24521268</p>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <div className="w-6 h-6 text-primary-600 mr-4 flex-shrink-0 flex items-center justify-center font-bold">
+                    F
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-slate-900">FAX</h3>
+                    <p className="text-slate-600 mt-1">02-24521579</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -64,14 +74,14 @@ export default function About() {
                   </div>
                   <div>
                     <h3 className="font-bold text-slate-900">LINE 官方帳號</h3>
-                    <p className="text-slate-600 mt-1">[待補 LINE ID]</p>
+                    <p className="text-slate-600 mt-1">@593cexey</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <MapPin className="w-6 h-6 text-primary-600 mr-4 flex-shrink-0" />
                   <div>
                     <h3 className="font-bold text-slate-900">地址</h3>
-                    <p className="text-slate-600 mt-1">[待補真實地址]</p>
+                    <p className="text-slate-600 mt-1">基隆市七堵區工建北路5號</p>
                   </div>
                 </div>
               </div>
