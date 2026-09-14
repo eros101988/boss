@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Package, Truck, ShieldCheck, Factory } from 'lucide-react';
+import { ArrowRight, Truck, ShieldCheck, Factory } from 'lucide-react';
 import { categories } from '../data/store';
 
 export default function Home() {
