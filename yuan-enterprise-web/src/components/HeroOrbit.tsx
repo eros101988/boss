@@ -87,37 +87,8 @@ export default function HeroOrbit() {
   const togglePause = () => setIsPaused(!isPaused);
 
   return (
-    <div className="relative w-full h-[90svh] min-h-[700px] flex items-center justify-center overflow-hidden bg-slate-50/50">
-      {/* Central Brand Text */}
-      <div className="relative z-10 text-center px-4 w-full max-w-[35%] md:max-w-[40%] flex flex-col items-center">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] xl:text-[5.5rem] font-extrabold text-slate-900 leading-tight mb-2 tracking-tight">
-          侑安國際
-        </h1>
-        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-700 mb-4">
-          包裝・清潔・日常耗材
-        </h2>
-        <p className="text-sm sm:text-base text-slate-600 mb-8 max-w-sm mx-auto">
-          從日常備品到營業所需，找到合適的用品。
-        </p>
-        
-        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-          <Link 
-            to="/products" 
-            className="px-8 py-3.5 bg-slate-900 text-white font-bold rounded-full hover:bg-slate-800 transition shadow-lg hover:shadow-xl hover:-translate-y-0.5 text-center"
-          >
-            瀏覽全部商品
-          </Link>
-          <a 
-            href="https://line.me/R/ti/p/%40593cexey" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="px-8 py-3.5 bg-white text-slate-900 font-bold rounded-full border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition shadow-sm hover:shadow text-center"
-          >
-            LINE 聯絡詢價
-          </a>
-        </div>
-      </div>
-
+    <div className="relative w-full h-[90svh] min-h-[600px] md:min-h-[700px] flex items-center justify-center overflow-hidden bg-slate-50/50">
+      
       {/* Orbiting Products (Desktop & Mobile Unified 3D) */}
       <div 
         className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden"
@@ -131,36 +102,69 @@ export default function HeroOrbit() {
           onFocus={() => !isMobile && setIsHovered(true)}
           onBlur={() => !isMobile && setIsHovered(false)}
         >
+          {/* Central Brand Text - Placed in 3D space at Z=0 to ensure proper intersection sorting */}
+          <div 
+            className="absolute top-1/2 left-1/2 pointer-events-auto flex flex-col items-center text-center w-full max-w-[240px] sm:max-w-[320px] md:max-w-[450px]"
+            style={{ transform: 'translate3d(-50%, -50%, 0)' }}
+          >
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] xl:text-[5.5rem] font-extrabold text-slate-900 leading-tight mb-2 tracking-tight whitespace-nowrap">
+              侑安國際
+            </h1>
+            <h2 className="text-base sm:text-xl md:text-2xl font-bold text-slate-700 mb-4 whitespace-nowrap">
+              包裝・清潔・日常耗材
+            </h2>
+            <p className="text-xs sm:text-base text-slate-600 mb-6 sm:mb-8 max-w-[200px] sm:max-w-sm mx-auto">
+              從日常備品到營業所需，找到合適的用品。
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+              <Link 
+                to="/products" 
+                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 bg-slate-900 text-white text-sm sm:text-base font-bold rounded-full hover:bg-slate-800 transition shadow-lg hover:shadow-xl hover:-translate-y-0.5 text-center"
+              >
+                瀏覽全部商品
+              </Link>
+              <a 
+                href="https://line.me/R/ti/p/%40593cexey" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 bg-white text-slate-900 text-sm sm:text-base font-bold rounded-full border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition shadow-sm hover:shadow text-center"
+              >
+                LINE 聯絡詢價
+              </a>
+            </div>
+          </div>
+
           {displayItems.map((item, index) => {
             const phaseOffset = (index / numItems) * Math.PI * 2;
             const theta = time + phaseOffset;
 
-            // Responsive radius
-            const rx = isMobile ? 180 : (window.innerWidth < 1280 ? (window.innerWidth < 1024 ? 350 : 450) : 550);
-            const ry = isMobile ? 220 : (window.innerWidth < 1280 ? (window.innerWidth < 1024 ? 120 : 150) : 180);
+            // Responsive radius: tightly wrap around the central text
+            const rx = isMobile ? 135 : (window.innerWidth < 1280 ? (window.innerWidth < 1024 ? 300 : 400) : 500);
+            const ry = isMobile ? 250 : (window.innerWidth < 1280 ? (window.innerWidth < 1024 ? 100 : 130) : 160);
             
             const x = rx * Math.cos(theta);
-            // On mobile we make the orbit more vertical (tilted in X instead of just Y) to fit the narrow screen
+            // On mobile, use purely vertical tilt. On desktop, slight diagonal tilt.
             const y = isMobile 
               ? ry * Math.sin(theta)
               : ry * Math.sin(theta) + 30 * Math.cos(theta);
-            const z = (isMobile ? 200 : 350) * Math.sin(theta);
             
-            const scale = 1 + (z / (isMobile ? 800 : 1200)); 
-            const zIndex = Math.floor(z + 1000);
-
-            const rotateY = isMobile ? Math.cos(theta) * 10 : Math.cos(theta) * 20;
+            // Depth amplitude
+            const z = (isMobile ? 150 : 350) * Math.sin(theta);
+            
+            // Let the browser's 3D perspective handle the near/far sizing automatically via translate3d(z)
+            // Calculate a natural rotation so cards face mostly forward but turn slightly to follow the path
+            const rotateY = isMobile ? Math.cos(theta) * 15 : Math.cos(theta) * 25;
             const rotateX = isMobile ? Math.sin(theta) * 5 : Math.sin(theta) * 10;
             
-            const cardSize = isMobile ? '120px' : '200px';
+            const cardSize = isMobile ? '80px' : '180px';
             
             return (
               <div
                 key={item.id}
-                className="absolute top-1/2 left-1/2 mt-4"
+                className="absolute top-1/2 left-1/2 pointer-events-auto"
                 style={{
-                  transform: `translate3d(-50%, -50%, 0) translate3d(${x}px, ${y}px, ${z}px) scale(${scale}) rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
-                  zIndex,
+                  transform: `translate3d(-50%, -50%, 0) translate3d(${x}px, ${y}px, ${z}px) rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
                   width: cardSize,
                   height: cardSize,
                   transition: isActuallyPaused ? 'transform 0.5s ease-out' : 'none'
@@ -168,7 +172,7 @@ export default function HeroOrbit() {
               >
                 <Link
                   to={`/products/${encodeURIComponent(item.id)}`}
-                  className="pointer-events-auto group relative w-full h-full block bg-white rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-slate-100 p-3 hover:scale-105 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:border-primary-200 transition-all duration-300"
+                  className="group relative w-full h-full block bg-white rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-slate-100 p-2 sm:p-3 hover:border-primary-200 transition-colors duration-300"
                 >
                   <img src={item.coverImg} alt={item.name} className="w-full h-full object-contain" />
                   
@@ -200,7 +204,7 @@ export default function HeroOrbit() {
       )}
 
       {/* Scroll Down Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-slate-400 animate-bounce">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-slate-400 animate-bounce z-20">
         <span className="text-xs font-medium uppercase tracking-widest mb-1">探索產品</span>
         <div className="w-px h-6 bg-slate-300"></div>
       </div>
