@@ -81,7 +81,7 @@ export default function HeroOrbit() {
     };
   }).filter((item): item is NonNullable<typeof item> => Boolean(item));
 
-  const displayItems = isMobile ? heroItems.slice(0, 6) : heroItems;
+  const displayItems = isMobile ? heroItems.slice(0, 5) : heroItems;
   const numItems = displayItems.length;
 
   const togglePause = () => setIsPaused(!isPaused);
@@ -118,114 +118,75 @@ export default function HeroOrbit() {
         </div>
       </div>
 
-      {/* Orbiting Products */}
-      {!isMobile ? (
+      {/* Orbiting Products (Desktop & Mobile Unified 3D) */}
+      <div 
+        className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden"
+        style={{ perspective: '1200px' }}
+      >
         <div 
-          className="absolute inset-0 pointer-events-none flex items-center justify-center"
-          style={{ perspective: '1200px' }}
+          className="relative w-full h-full max-w-[1400px]"
+          style={{ transformStyle: 'preserve-3d' }}
+          onMouseEnter={() => !isMobile && setIsHovered(true)}
+          onMouseLeave={() => !isMobile && setIsHovered(false)}
+          onFocus={() => !isMobile && setIsHovered(true)}
+          onBlur={() => !isMobile && setIsHovered(false)}
         >
-          <div 
-            className="relative w-full h-full max-w-[1400px]"
-            style={{ transformStyle: 'preserve-3d' }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            onFocus={() => setIsHovered(true)}
-            onBlur={() => setIsHovered(false)}
-          >
-            {displayItems.map((item, index) => {
-              // Initial phase for this item
-              const phaseOffset = (index / numItems) * Math.PI * 2;
-              const theta = time + phaseOffset;
+          {displayItems.map((item, index) => {
+            const phaseOffset = (index / numItems) * Math.PI * 2;
+            const theta = time + phaseOffset;
 
-              // Base radius settings
-              // Expand the orbit so it wraps around the center text
-              const rx = window.innerWidth < 1280 ? (window.innerWidth < 1024 ? 350 : 450) : 550; // X radius
-              const ry = window.innerWidth < 1280 ? (window.innerWidth < 1024 ? 120 : 150) : 180;  // Y radius
-              
-              // 3D positioning using parametric equation of tilted circle
-              // Tilt the plane slightly to create depth (z changes with sin/cos)
-              // Added slight offset to center to avoid hitting the header
-              const x = rx * Math.cos(theta);
-              const y = ry * Math.sin(theta) + 30 * Math.cos(theta); // slight tilt in Y
-              const z = 350 * Math.sin(theta); // Depth amplitude
-              
-              // Calculate scaling based on Z to enhance depth perception without relying solely on perspective
-              // (Z goes from -350 to +350 roughly)
-              // Z is positive when closer to viewer
-              // Reduce the scale difference to avoid making close items too gigantic
-              const scale = 1 + (z / 1200); 
-              
-              // Sort by Z index so closer items are drawn on top
-              const zIndex = Math.floor(z + 1000);
+            // Responsive radius
+            const rx = isMobile ? 180 : (window.innerWidth < 1280 ? (window.innerWidth < 1024 ? 350 : 450) : 550);
+            const ry = isMobile ? 220 : (window.innerWidth < 1280 ? (window.innerWidth < 1024 ? 120 : 150) : 180);
+            
+            const x = rx * Math.cos(theta);
+            // On mobile we make the orbit more vertical (tilted in X instead of just Y) to fit the narrow screen
+            const y = isMobile 
+              ? ry * Math.sin(theta)
+              : ry * Math.sin(theta) + 30 * Math.cos(theta);
+            const z = (isMobile ? 200 : 350) * Math.sin(theta);
+            
+            const scale = 1 + (z / (isMobile ? 800 : 1200)); 
+            const zIndex = Math.floor(z + 1000);
 
-              // Calculate a slight rotation so cards face mostly forward but turn a bit to follow the path
-              const rotateY = Math.cos(theta) * 20; // rotate slightly left/right based on X position
-              const rotateX = Math.sin(theta) * 10; // slightly tilt up/down
-              
-              return (
-                <div
-                  key={item.id}
-                  className="absolute top-1/2 left-1/2 pointer-events-auto mt-4"
-                  style={{
-                    transform: `translate3d(-50%, -50%, 0) translate3d(${x}px, ${y}px, ${z}px) scale(${scale}) rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
-                    zIndex,
-                    // Use a slightly larger card size for desktop
-                    width: '200px',
-                    height: '200px',
-                    transition: isActuallyPaused ? 'transform 0.5s ease-out' : 'none'
-                  }}
+            const rotateY = isMobile ? Math.cos(theta) * 10 : Math.cos(theta) * 20;
+            const rotateX = isMobile ? Math.sin(theta) * 5 : Math.sin(theta) * 10;
+            
+            const cardSize = isMobile ? '120px' : '200px';
+            
+            return (
+              <div
+                key={item.id}
+                className="absolute top-1/2 left-1/2 mt-4"
+                style={{
+                  transform: `translate3d(-50%, -50%, 0) translate3d(${x}px, ${y}px, ${z}px) scale(${scale}) rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
+                  zIndex,
+                  width: cardSize,
+                  height: cardSize,
+                  transition: isActuallyPaused ? 'transform 0.5s ease-out' : 'none'
+                }}
+              >
+                <Link
+                  to={`/products/${encodeURIComponent(item.id)}`}
+                  className="pointer-events-auto group relative w-full h-full block bg-white rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-slate-100 p-3 hover:scale-105 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:border-primary-200 transition-all duration-300"
                 >
-                  <Link
-                    to={`/products/${encodeURIComponent(item.id)}`}
-                    className="group relative w-full h-full block bg-white rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-slate-100 p-3 hover:scale-105 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:border-primary-200 transition-all duration-300"
-                  >
-                    <img src={item.coverImg} alt={item.name} className="w-full h-full object-contain" />
-                    
-                    {/* Tooltip on hover */}
+                  <img src={item.coverImg} alt={item.name} className="w-full h-full object-contain" />
+                  
+                  {/* Tooltip on hover (desktop only) */}
+                  {!isMobile && (
                     <div className="absolute inset-x-0 -bottom-2 translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
                       <div className="bg-slate-900 text-white text-xs font-medium py-2 px-3 rounded-lg shadow-xl text-center break-keep min-w-[120px] max-w-[200px] mx-auto">
                         {item.name}
                         <div className="text-primary-300 text-[10px] mt-1">查看商品</div>
                       </div>
                     </div>
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      ) : (
-        /* Mobile Layout: Static scattered cards around the center */
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {displayItems.map((item, index) => {
-            // Pre-calculated scattered positions for mobile (top-left, top-right, etc.)
-            const positions = [
-              { top: '10%', left: '5%' },
-              { top: '15%', right: '5%' },
-              { bottom: '25%', left: '2%' },
-              { bottom: '20%', right: '2%' },
-              { top: '45%', left: '-5%' },
-              { top: '50%', right: '-5%' },
-            ];
-            const pos = positions[index % positions.length];
-            
-            return (
-              <div 
-                key={item.id}
-                className="absolute animate-[float_6s_ease-in-out_infinite]"
-                style={{ ...pos, animationDelay: `${index * 0.7}s` }}
-              >
-                <Link
-                  to={`/products/${encodeURIComponent(item.id)}`}
-                  className="pointer-events-auto block w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] bg-white rounded-xl shadow-lg border border-slate-100 p-2"
-                >
-                  <img src={item.coverImg} alt={item.name} className="w-full h-full object-contain" />
+                  )}
                 </Link>
               </div>
             );
           })}
         </div>
-      )}
+      </div>
 
       {/* Animation Controls (Desktop only) */}
       {!isMobile && (
