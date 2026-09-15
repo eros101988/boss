@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Play, Pause } from 'lucide-react';
 import { products } from '../data/store';
@@ -20,6 +20,37 @@ export default function HeroOrbit() {
   const [isHovered, setIsHovered] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  
+  // Animation state
+  const requestRef = useRef<number>(0);
+  const [time, setTime] = useState(0);
+  
+  const isActuallyPaused = isPaused || isHovered || prefersReducedMotion;
+
+  // 3D Animation Loop
+  useEffect(() => {
+    if (isMobile || isActuallyPaused) {
+      if (requestRef.current) cancelAnimationFrame(requestRef.current);
+      return;
+    }
+
+    let lastTime = performance.now();
+    const animate = (now: number) => {
+      const dt = now - lastTime;
+      lastTime = now;
+      
+      // Update time: 1 unit per roughly 60 seconds loop
+      // dt is in ms, we want time to go from 0 to 2*PI over ~60s
+      setTime(prevTime => (prevTime + (dt / 60000) * Math.PI * 2) % (Math.PI * 2));
+      
+      requestRef.current = requestAnimationFrame(animate);
+    };
+
+    requestRef.current = requestAnimationFrame(animate);
+    return () => {
+      if (requestRef.current) cancelAnimationFrame(requestRef.current);
+    };
+  }, [isMobile, isActuallyPaused]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia?.('(prefers-reduced-motion: reduce)');
@@ -55,19 +86,17 @@ export default function HeroOrbit() {
 
   const togglePause = () => setIsPaused(!isPaused);
 
-  const isActuallyPaused = isPaused || isHovered || prefersReducedMotion;
-
   return (
-    <div className="relative w-full h-[85svh] min-h-[600px] flex items-center justify-center overflow-hidden bg-slate-50/50">
+    <div className="relative w-full h-[90svh] min-h-[700px] flex items-center justify-center overflow-hidden bg-slate-50/50">
       {/* Central Brand Text */}
-      <div className="relative z-10 text-center px-4 max-w-[90%] md:max-w-[40%] flex flex-col items-center">
-        <h1 className="text-[10vw] sm:text-6xl md:text-[5rem] lg:text-[6rem] font-extrabold text-slate-900 leading-tight mb-2 tracking-tight">
+      <div className="relative z-10 text-center px-4 w-full max-w-[35%] md:max-w-[40%] flex flex-col items-center">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] xl:text-[5.5rem] font-extrabold text-slate-900 leading-tight mb-2 tracking-tight">
           侑安國際
         </h1>
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-700 mb-4">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-700 mb-4">
           包裝・清潔・日常耗材
         </h2>
-        <p className="text-base sm:text-lg text-slate-600 mb-8 max-w-md mx-auto">
+        <p className="text-sm sm:text-base text-slate-600 mb-8 max-w-sm mx-auto">
           從日常備品到營業所需，找到合適的用品。
         </p>
         
@@ -93,57 +122,76 @@ export default function HeroOrbit() {
       {!isMobile ? (
         <div 
           className="absolute inset-0 pointer-events-none flex items-center justify-center"
-          style={{ perspective: '1000px' }}
+          style={{ perspective: '1200px' }}
         >
           <div 
-            className="relative w-[80vw] h-[80vw] max-w-[1000px] max-h-[1000px]"
+            className="relative w-full h-full max-w-[1400px]"
+            style={{ transformStyle: 'preserve-3d' }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onFocus={() => setIsHovered(true)}
             onBlur={() => setIsHovered(false)}
           >
-            <div 
-              className={`w-full h-full absolute top-0 left-0 rounded-full ${isActuallyPaused ? '' : 'animate-[spin_75s_linear_infinite]'}`}
-              style={{ transformStyle: 'preserve-3d', animationPlayState: isActuallyPaused ? 'paused' : 'running' }}
-            >
-              {displayItems.map((item, index) => {
-                const angle = (index / numItems) * 360;
-                // Calculate position on the circle (using 50% radius)
-                const radius = 50; // percentage
-                
-                return (
-                  <div
-                    key={item.id}
-                    className="absolute top-1/2 left-1/2 -ml-[80px] -mt-[80px] lg:-ml-[100px] lg:-mt-[100px]"
-                    style={{
-                      transform: `rotate(${angle}deg) translateX(${radius}cqi) rotate(-${angle}deg)`,
-                      containerType: 'inline-size'
-                    }}
+            {displayItems.map((item, index) => {
+              // Initial phase for this item
+              const phaseOffset = (index / numItems) * Math.PI * 2;
+              const theta = time + phaseOffset;
+
+              // Base radius settings
+              // Expand the orbit so it wraps around the center text
+              const rx = window.innerWidth < 1280 ? (window.innerWidth < 1024 ? 350 : 450) : 550; // X radius
+              const ry = window.innerWidth < 1280 ? (window.innerWidth < 1024 ? 120 : 150) : 180;  // Y radius
+              
+              // 3D positioning using parametric equation of tilted circle
+              // Tilt the plane slightly to create depth (z changes with sin/cos)
+              // Added slight offset to center to avoid hitting the header
+              const x = rx * Math.cos(theta);
+              const y = ry * Math.sin(theta) + 30 * Math.cos(theta); // slight tilt in Y
+              const z = 350 * Math.sin(theta); // Depth amplitude
+              
+              // Calculate scaling based on Z to enhance depth perception without relying solely on perspective
+              // (Z goes from -350 to +350 roughly)
+              // Z is positive when closer to viewer
+              // Reduce the scale difference to avoid making close items too gigantic
+              const scale = 1 + (z / 1200); 
+              
+              // Sort by Z index so closer items are drawn on top
+              const zIndex = Math.floor(z + 1000);
+
+              // Calculate a slight rotation so cards face mostly forward but turn a bit to follow the path
+              const rotateY = Math.cos(theta) * 20; // rotate slightly left/right based on X position
+              const rotateX = Math.sin(theta) * 10; // slightly tilt up/down
+              
+              return (
+                <div
+                  key={item.id}
+                  className="absolute top-1/2 left-1/2 pointer-events-auto mt-4"
+                  style={{
+                    transform: `translate3d(-50%, -50%, 0) translate3d(${x}px, ${y}px, ${z}px) scale(${scale}) rotateY(${rotateY}deg) rotateX(${rotateX}deg)`,
+                    zIndex,
+                    // Use a slightly larger card size for desktop
+                    width: '200px',
+                    height: '200px',
+                    transition: isActuallyPaused ? 'transform 0.5s ease-out' : 'none'
+                  }}
+                >
+                  <Link
+                    to={`/products/${encodeURIComponent(item.id)}`}
+                    className="group relative w-full h-full block bg-white rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-slate-100 p-3 hover:scale-105 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:border-primary-200 transition-all duration-300"
                   >
-                    <div 
-                      className={`w-[160px] h-[160px] lg:w-[200px] lg:h-[200px] ${isActuallyPaused ? '' : 'animate-[spin_75s_linear_infinite_reverse]'}`}
-                      style={{ animationPlayState: isActuallyPaused ? 'paused' : 'running' }}
-                    >
-                      <Link
-                        to={`/products/${encodeURIComponent(item.id)}`}
-                        className="pointer-events-auto group relative w-full h-full block bg-white rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-slate-100 p-3 hover:scale-110 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:border-primary-200 hover:z-50 transition-all duration-300 animate-[float_6s_ease-in-out_infinite]"
-                        style={{ animationDelay: `${index * 0.5}s` }}
-                      >
-                        <img src={item.coverImg} alt={item.name} className="w-full h-full object-contain" />
-                        
-                        {/* Tooltip on hover */}
-                        <div className="absolute inset-x-0 -bottom-2 translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                          <div className="bg-slate-900 text-white text-xs font-medium py-2 px-3 rounded-lg shadow-xl text-center break-keep min-w-[120px] max-w-[200px] mx-auto">
-                            {item.name}
-                            <div className="text-primary-300 text-[10px] mt-1">查看商品</div>
-                          </div>
-                        </div>
-                      </Link>
+                    <img src={item.coverImg} alt={item.name} className="w-full h-full object-contain" />
+                    
+                    {/* Tooltip on hover */}
+                    <div className="absolute inset-x-0 -bottom-2 translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                      <div className="bg-slate-900 text-white text-xs font-medium py-2 px-3 rounded-lg shadow-xl text-center break-keep min-w-[120px] max-w-[200px] mx-auto">
+                        {item.name}
+                        <div className="text-primary-300 text-[10px] mt-1">查看商品</div>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
+                  </Link>
+                </div>
+              );
+            })}
           </div>
         </div>
       ) : (
