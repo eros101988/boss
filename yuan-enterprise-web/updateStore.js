@@ -3,9 +3,6 @@ import fs from 'fs';
 // Read delta.json
 const delta = JSON.parse(fs.readFileSync('c:/Users/eros/Desktop/佑安企業_新增產品_B02/佑安企業_新增產品_B02/delta.json', 'utf-8'));
 
-// Read current store.ts
-// Wait, to parse store.ts, maybe we can just require the js?
-// Since it's TS, it's easier to just read the JSON from generateStore again, then modify it, and write it out.
 const rawData = JSON.parse(fs.readFileSync('./public/assets/圖片索引.json', 'utf-8'));
 const categoryData = JSON.parse(fs.readFileSync('./public/assets/類目封面對照.json', 'utf-8'));
 
@@ -40,6 +37,61 @@ delta.products.forEach(p => {
   }
 });
 
+// Rename categories according to spec
+categories.forEach(cat => {
+  if (cat.id === '03_夾鏈袋') {
+    cat.name = '夾鏈袋／密實袋／冷凍袋';
+  }
+});
+
+// Function to clean product names
+function cleanProductName(category, subcategory, productGroup) {
+  let displayName = productGroup;
+  
+  if (category === '01_清潔袋') {
+    if (subcategory === '01_一般捲取式') {
+      const parts = productGroup.split('_');
+      displayName = `台塑清潔袋｜${parts[0]}型 ${parts[1] || ''}`.trim();
+    } else if (subcategory === '02_拉繩式') {
+      const parts = productGroup.split('_');
+      displayName = `台塑拉繩清潔袋｜${parts[0]}型 ${parts[1] || ''}`.trim();
+    } else if (subcategory === '03_抽取式與業務用') {
+      const parts = productGroup.split('_');
+      displayName = `台塑清潔袋(抽取/業務用)｜${parts[0]} ${parts[1] || ''}`.trim();
+    } else if (subcategory === '04_醫療感染性廢棄物袋') {
+      displayName = `醫療感染性廢棄物袋`;
+    }
+  } else if (category === '02_食品保鮮耐熱袋') {
+    const parts = productGroup.split('_');
+    displayName = `台塑保鮮耐熱袋｜${parts[0]} ${parts[1] || ''}`.trim();
+  } else if (category === '03_夾鏈袋') {
+    if (subcategory === '01_台塑LDPE夾鏈袋') {
+      const parts = productGroup.split('_');
+      let num = parts[0].replace('號', '').replace('特小', '');
+      displayName = `台塑夾鏈袋｜${num}號`;
+    }
+  } else if (category === '04_病媒防治') {
+    const parts = productGroup.split('_');
+    displayName = parts[0];
+  }
+  
+  return displayName;
+}
+
+// Extract specs from raw text for old products
+function parseOldSpecs(productGroup) {
+  const parts = productGroup.split('_');
+  if (parts.length > 1) {
+    return {
+      size_or_type: parts[0],
+      capacity_or_dim: parts[1] || '',
+      quantity: parts[2] || ''
+    };
+  }
+  return null;
+}
+
+
 // build products
 const groupMap = new Map();
 
@@ -53,10 +105,12 @@ rawData.forEach(item => {
       id: groupId,
       categoryId: item.category,
       subcategoryId: item.subcategory,
-      name: item.product_group,
+      name: cleanProductName(item.category, item.subcategory, item.product_group),
+      originalName: item.product_group,
       images: [],
       specs: [],
-      shared_images: []
+      shared_images: [],
+      parsedSpec: parseOldSpecs(item.product_group)
     });
   }
 
@@ -67,6 +121,20 @@ rawData.forEach(item => {
     note: item.note,
     order: 0
   });
+  
+  // Sort images: front packaging first, specs last
+  group.images.sort((a, b) => {
+    const aRole = a.role || '';
+    const bRole = b.role || '';
+    
+    if (aRole.includes('正面') || aRole.includes('主圖')) return -1;
+    if (bRole.includes('正面') || bRole.includes('主圖')) return 1;
+    
+    if (aRole.includes('規格圖')) return 1;
+    if (bRole.includes('規格圖')) return -1;
+    
+    return 0;
+  });
 });
 
 delta.products.forEach(p => {
@@ -76,6 +144,7 @@ delta.products.forEach(p => {
       categoryId: p.category,
       subcategoryId: p.subcategory,
       name: p.name,
+      originalName: p.name,
       images: [],
       specs: p.variants.map(v => ({
         id: v.id,
@@ -94,7 +163,8 @@ delta.products.forEach(p => {
         role: img.role,
         path: `/assets/${img.path}`,
         order: img.order
-      }))
+      })),
+      parsedSpec: null
     });
   }
 });
@@ -107,4 +177,4 @@ export const products = ${JSON.stringify(productsList, null, 2)};
 `;
 
 fs.writeFileSync('./src/data/store.ts', storeCode);
-console.log('store.ts updated with delta');
+console.log('store.ts updated with refactored names and delta');

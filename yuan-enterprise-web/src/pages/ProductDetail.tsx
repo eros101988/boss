@@ -94,11 +94,10 @@ export default function ProductDetail() {
             </div>
             <h1 className="text-3xl font-bold text-slate-900 mb-4">{product.name}</h1>
             
-            <div className="bg-amber-50 text-amber-800 p-4 rounded-lg flex items-start mb-6">
-              <Info className="w-5 h-5 mr-2 flex-shrink-0 mt-0.5" />
-              <div className="text-sm">
-                <p className="font-bold">詢價商品</p>
-                <p>此商品價格需視訂購數量與交期而定，請加入需求清單後送出，將有專人為您報價。</p>
+            <div className="bg-slate-50 text-slate-700 p-4 rounded-lg flex items-start mb-6 border border-slate-200">
+              <Info className="w-5 h-5 mr-2 flex-shrink-0 mt-0.5 text-slate-500" />
+              <div className="text-sm leading-relaxed">
+                價格、運費與交期由專人確認。
               </div>
             </div>
 
@@ -124,19 +123,74 @@ export default function ProductDetail() {
             )}
 
             <div className="flex-grow">
-              <h3 className="text-lg font-bold mb-2">商品說明</h3>
               {hasSpecs && selectedSpec ? (
-                <ul className="space-y-2 text-slate-600 text-sm mb-6">
-                  <li>• 尺寸：{selectedSpec.dimensions.join(' x ')} cm</li>
-                  <li>• 每盒張數：{selectedSpec.sheets_per_box} 張</li>
-                  <li>• 條碼：{selectedSpec.barcode}</li>
-                </ul>
+                <div className="mb-6">
+                  <h3 className="text-lg font-bold mb-3 border-b border-slate-100 pb-2">商品規格</h3>
+                  <table className="w-full text-sm text-left">
+                    <tbody className="divide-y divide-slate-100">
+                      <tr>
+                        <th className="py-2 text-slate-500 w-24">尺寸</th>
+                        <td className="py-2 font-medium">{selectedSpec.dimensions.join(' × ')} cm</td>
+                      </tr>
+                      <tr>
+                        <th className="py-2 text-slate-500">每盒張數</th>
+                        <td className="py-2 font-medium">{selectedSpec.sheets_per_box} 張</td>
+                      </tr>
+                      {selectedSpec.barcode && (
+                        <tr>
+                          <th className="py-2 text-slate-500">條碼</th>
+                          <td className="py-2 font-medium">{selectedSpec.barcode}</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                  
+                  {/* Additional notes based on category */}
+                  {product.categoryId === '03_夾鏈袋' && (
+                    <div className="mt-4 text-sm text-slate-600 bg-slate-50 p-3 rounded">
+                      <p>• 材質：LDPE（低密度聚乙烯）、PE（聚乙烯）</p>
+                      <p>• 產地：泰國</p>
+                      <p>• 耐冷熱範圍：-40°C ~ 60°C</p>
+                      <p className="text-red-500 mt-1">※ 不適合加熱烹調；過熱食品請放涼後再放入袋中。</p>
+                    </div>
+                  )}
+                </div>
               ) : (
-                <ul className="space-y-2 text-slate-600 text-sm mb-6">
-                  {displayImages.map((img: any, idx) => (
-                    <li key={idx}>• {img.role} {img.note && `(${img.note})`}</li>
-                  ))}
-                </ul>
+                <div className="mb-6">
+                  {product.parsedSpec && (
+                    <>
+                      <h3 className="text-lg font-bold mb-3 border-b border-slate-100 pb-2">商品規格</h3>
+                      <table className="w-full text-sm text-left mb-4">
+                        <tbody className="divide-y divide-slate-100">
+                          {product.parsedSpec.size_or_type && (
+                            <tr>
+                              <th className="py-2 text-slate-500 w-24">款式/尺寸</th>
+                              <td className="py-2 font-medium">{product.parsedSpec.size_or_type}</td>
+                            </tr>
+                          )}
+                          {product.parsedSpec.capacity_or_dim && (
+                            <tr>
+                              <th className="py-2 text-slate-500">容量/規格</th>
+                              <td className="py-2 font-medium">{product.parsedSpec.capacity_or_dim}</td>
+                            </tr>
+                          )}
+                          {product.parsedSpec.quantity && (
+                            <tr>
+                              <th className="py-2 text-slate-500">包裝數量</th>
+                              <td className="py-2 font-medium">{product.parsedSpec.quantity}</td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                    </>
+                  )}
+                  
+                  {product.categoryId === '01_清潔袋' && (
+                    <div className="mt-4 text-sm text-slate-600 bg-slate-50 p-3 rounded">
+                      <p>※ 詳細張數與尺寸以實際包裝標示為準。</p>
+                    </div>
+                  )}
+                </div>
               )}
             </div>
 

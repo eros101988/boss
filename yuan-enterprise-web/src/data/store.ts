@@ -46,7 +46,7 @@ export const categories = [
   },
   {
     "id": "03_夾鏈袋",
-    "name": "夾鏈袋",
+    "name": "夾鏈袋／密實袋／冷凍袋",
     "cover": "/assets/03_夾鏈袋/01_台塑LDPE夾鏈袋/08號_170x240mm/規格圖__IMG_0248.JPG",
     "subcategories": [
       {
@@ -89,7 +89,8 @@ export const products = [
     "id": "01_清潔袋-01_一般捲取式-中_20L",
     "categoryId": "01_清潔袋",
     "subcategoryId": "01_一般捲取式",
-    "name": "中_20L",
+    "name": "台塑清潔袋｜中型 20L",
+    "originalName": "中_20L",
     "images": [
       {
         "role": "規格圖",
@@ -99,13 +100,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "中",
+      "capacity_or_dim": "20L",
+      "quantity": ""
+    }
   },
   {
     "id": "01_清潔袋-01_一般捲取式-大_45L",
     "categoryId": "01_清潔袋",
     "subcategoryId": "01_一般捲取式",
-    "name": "大_45L",
+    "name": "台塑清潔袋｜大型 45L",
+    "originalName": "大_45L",
     "images": [
       {
         "role": "規格圖",
@@ -115,13 +122,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "大",
+      "capacity_or_dim": "45L",
+      "quantity": ""
+    }
   },
   {
     "id": "01_清潔袋-01_一般捲取式-特大_70L",
     "categoryId": "01_清潔袋",
     "subcategoryId": "01_一般捲取式",
-    "name": "特大_70L",
+    "name": "台塑清潔袋｜特大型 70L",
+    "originalName": "特大_70L",
     "images": [
       {
         "role": "規格圖",
@@ -131,13 +144,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "特大",
+      "capacity_or_dim": "70L",
+      "quantity": ""
+    }
   },
   {
     "id": "01_清潔袋-01_一般捲取式-超大_90L",
     "categoryId": "01_清潔袋",
     "subcategoryId": "01_一般捲取式",
-    "name": "超大_90L",
+    "name": "台塑清潔袋｜超大型 90L",
+    "originalName": "超大_90L",
     "images": [
       {
         "role": "規格圖",
@@ -147,13 +166,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "超大",
+      "capacity_or_dim": "90L",
+      "quantity": ""
+    }
   },
   {
     "id": "01_清潔袋-01_一般捲取式-超小_10L",
     "categoryId": "01_清潔袋",
     "subcategoryId": "01_一般捲取式",
-    "name": "超小_10L",
+    "name": "台塑清潔袋｜超小型 10L",
+    "originalName": "超小_10L",
     "images": [
       {
         "role": "規格圖",
@@ -163,13 +188,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "超小",
+      "capacity_or_dim": "10L",
+      "quantity": ""
+    }
   },
   {
     "id": "01_清潔袋-01_一般捲取式-飯店旅館無心捲_10L",
     "categoryId": "01_清潔袋",
     "subcategoryId": "01_一般捲取式",
-    "name": "飯店旅館無心捲_10L",
+    "name": "台塑清潔袋｜飯店旅館無心捲型 10L",
+    "originalName": "飯店旅館無心捲_10L",
     "images": [
       {
         "role": "規格圖",
@@ -179,13 +210,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "飯店旅館無心捲",
+      "capacity_or_dim": "10L",
+      "quantity": ""
+    }
   },
   {
     "id": "01_清潔袋-02_拉繩式-大_45L_24張",
     "categoryId": "01_清潔袋",
     "subcategoryId": "02_拉繩式",
-    "name": "大_45L_24張",
+    "name": "台塑拉繩清潔袋｜大型 45L",
+    "originalName": "大_45L_24張",
     "images": [
       {
         "role": "規格圖",
@@ -195,13 +232,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "大",
+      "capacity_or_dim": "45L",
+      "quantity": "24張"
+    }
   },
   {
     "id": "01_清潔袋-02_拉繩式-巨無霸_130L_20張",
     "categoryId": "01_清潔袋",
     "subcategoryId": "02_拉繩式",
-    "name": "巨無霸_130L_20張",
+    "name": "台塑拉繩清潔袋｜巨無霸型 130L",
+    "originalName": "巨無霸_130L_20張",
     "images": [
       {
         "role": "規格圖",
@@ -211,13 +254,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "巨無霸",
+      "capacity_or_dim": "130L",
+      "quantity": "20張"
+    }
   },
   {
     "id": "01_清潔袋-02_拉繩式-特大_70L_18張",
     "categoryId": "01_清潔袋",
     "subcategoryId": "02_拉繩式",
-    "name": "特大_70L_18張",
+    "name": "台塑拉繩清潔袋｜特大型 70L",
+    "originalName": "特大_70L_18張",
     "images": [
       {
         "role": "規格圖",
@@ -227,13 +276,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "特大",
+      "capacity_or_dim": "70L",
+      "quantity": "18張"
+    }
   },
   {
     "id": "01_清潔袋-02_拉繩式-超大_90L_14張",
     "categoryId": "01_清潔袋",
     "subcategoryId": "02_拉繩式",
-    "name": "超大_90L_14張",
+    "name": "台塑拉繩清潔袋｜超大型 90L",
+    "originalName": "超大_90L_14張",
     "images": [
       {
         "role": "規格圖",
@@ -243,13 +298,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "超大",
+      "capacity_or_dim": "90L",
+      "quantity": "14張"
+    }
   },
   {
     "id": "01_清潔袋-02_拉繩式-超大超值包_90L_25張",
     "categoryId": "01_清潔袋",
     "subcategoryId": "02_拉繩式",
-    "name": "超大超值包_90L_25張",
+    "name": "台塑拉繩清潔袋｜超大超值包型 90L",
+    "originalName": "超大超值包_90L_25張",
     "images": [
       {
         "role": "規格圖",
@@ -259,13 +320,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "超大超值包",
+      "capacity_or_dim": "90L",
+      "quantity": "25張"
+    }
   },
   {
     "id": "01_清潔袋-02_拉繩式-超特大_125L_15張",
     "categoryId": "01_清潔袋",
     "subcategoryId": "02_拉繩式",
-    "name": "超特大_125L_15張",
+    "name": "台塑拉繩清潔袋｜超特大型 125L",
+    "originalName": "超特大_125L_15張",
     "images": [
       {
         "role": "規格圖",
@@ -275,13 +342,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "超特大",
+      "capacity_or_dim": "125L",
+      "quantity": "15張"
+    }
   },
   {
     "id": "01_清潔袋-03_抽取式與業務用-超大_黑色_28張",
     "categoryId": "01_清潔袋",
     "subcategoryId": "03_抽取式與業務用",
-    "name": "超大_黑色_28張",
+    "name": "台塑清潔袋(抽取/業務用)｜超大 黑色",
+    "originalName": "超大_黑色_28張",
     "images": [
       {
         "role": "規格圖",
@@ -291,13 +364,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "超大",
+      "capacity_or_dim": "黑色",
+      "quantity": "28張"
+    }
   },
   {
     "id": "01_清潔袋-03_抽取式與業務用-超巨大_165L_22張",
     "categoryId": "01_清潔袋",
     "subcategoryId": "03_抽取式與業務用",
-    "name": "超巨大_165L_22張",
+    "name": "台塑清潔袋(抽取/業務用)｜超巨大 165L",
+    "originalName": "超巨大_165L_22張",
     "images": [
       {
         "role": "規格圖",
@@ -307,13 +386,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "超巨大",
+      "capacity_or_dim": "165L",
+      "quantity": "22張"
+    }
   },
   {
     "id": "01_清潔袋-03_抽取式與業務用-超巨霸_260L_17張",
     "categoryId": "01_清潔袋",
     "subcategoryId": "03_抽取式與業務用",
-    "name": "超巨霸_260L_17張",
+    "name": "台塑清潔袋(抽取/業務用)｜超巨霸 260L",
+    "originalName": "超巨霸_260L_17張",
     "images": [
       {
         "role": "規格圖",
@@ -323,13 +408,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "超巨霸",
+      "capacity_or_dim": "260L",
+      "quantity": "17張"
+    }
   },
   {
     "id": "01_清潔袋-03_抽取式與業務用-超特大_125L_21張",
     "categoryId": "01_清潔袋",
     "subcategoryId": "03_抽取式與業務用",
-    "name": "超特大_125L_21張",
+    "name": "台塑清潔袋(抽取/業務用)｜超特大 125L",
+    "originalName": "超特大_125L_21張",
     "images": [
       {
         "role": "規格圖",
@@ -339,13 +430,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "超特大",
+      "capacity_or_dim": "125L",
+      "quantity": "21張"
+    }
   },
   {
     "id": "01_清潔袋-03_抽取式與業務用-超特大_一般30張與加厚27張",
     "categoryId": "01_清潔袋",
     "subcategoryId": "03_抽取式與業務用",
-    "name": "超特大_一般30張與加厚27張",
+    "name": "台塑清潔袋(抽取/業務用)｜超特大 一般30張與加厚27張",
+    "originalName": "超特大_一般30張與加厚27張",
     "images": [
       {
         "role": "雙款規格圖",
@@ -355,13 +452,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "超特大",
+      "capacity_or_dim": "一般30張與加厚27張",
+      "quantity": ""
+    }
   },
   {
     "id": "01_清潔袋-04_醫療感染性廢棄物袋-感染袋_多尺寸",
     "categoryId": "01_清潔袋",
     "subcategoryId": "04_醫療感染性廢棄物袋",
-    "name": "感染袋_多尺寸",
+    "name": "醫療感染性廢棄物袋",
+    "originalName": "感染袋_多尺寸",
     "images": [
       {
         "role": "系列規格圖",
@@ -371,13 +474,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "感染袋",
+      "capacity_or_dim": "多尺寸",
+      "quantity": ""
+    }
   },
   {
     "id": "02_食品保鮮耐熱袋-01_台塑保鮮耐熱袋-200x300mm_150枚",
     "categoryId": "02_食品保鮮耐熱袋",
     "subcategoryId": "01_台塑保鮮耐熱袋",
-    "name": "200x300mm_150枚",
+    "name": "台塑保鮮耐熱袋｜200x300mm 150枚",
+    "originalName": "200x300mm_150枚",
     "images": [
       {
         "role": "包裝正面圖",
@@ -399,13 +508,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "200x300mm",
+      "capacity_or_dim": "150枚",
+      "quantity": ""
+    }
   },
   {
     "id": "02_食品保鮮耐熱袋-01_台塑保鮮耐熱袋-280x410mm_100枚",
     "categoryId": "02_食品保鮮耐熱袋",
     "subcategoryId": "01_台塑保鮮耐熱袋",
-    "name": "280x410mm_100枚",
+    "name": "台塑保鮮耐熱袋｜280x410mm 100枚",
+    "originalName": "280x410mm_100枚",
     "images": [
       {
         "role": "包裝正面圖",
@@ -427,13 +542,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "280x410mm",
+      "capacity_or_dim": "100枚",
+      "quantity": ""
+    }
   },
   {
     "id": "03_夾鏈袋-01_台塑LDPE夾鏈袋-00特小號_35x40mm",
     "categoryId": "03_夾鏈袋",
     "subcategoryId": "01_台塑LDPE夾鏈袋",
-    "name": "00特小號_35x40mm",
+    "name": "台塑夾鏈袋｜00號",
+    "originalName": "00特小號_35x40mm",
     "images": [
       {
         "role": "規格圖",
@@ -443,13 +564,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "00特小號",
+      "capacity_or_dim": "35x40mm",
+      "quantity": ""
+    }
   },
   {
     "id": "03_夾鏈袋-01_台塑LDPE夾鏈袋-00號_40x60mm",
     "categoryId": "03_夾鏈袋",
     "subcategoryId": "01_台塑LDPE夾鏈袋",
-    "name": "00號_40x60mm",
+    "name": "台塑夾鏈袋｜00號",
+    "originalName": "00號_40x60mm",
     "images": [
       {
         "role": "規格圖",
@@ -459,13 +586,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "00號",
+      "capacity_or_dim": "40x60mm",
+      "quantity": ""
+    }
   },
   {
     "id": "03_夾鏈袋-01_台塑LDPE夾鏈袋-01號_50x70mm",
     "categoryId": "03_夾鏈袋",
     "subcategoryId": "01_台塑LDPE夾鏈袋",
-    "name": "01號_50x70mm",
+    "name": "台塑夾鏈袋｜01號",
+    "originalName": "01號_50x70mm",
     "images": [
       {
         "role": "規格圖",
@@ -475,13 +608,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "01號",
+      "capacity_or_dim": "50x70mm",
+      "quantity": ""
+    }
   },
   {
     "id": "03_夾鏈袋-01_台塑LDPE夾鏈袋-02號_60x85mm",
     "categoryId": "03_夾鏈袋",
     "subcategoryId": "01_台塑LDPE夾鏈袋",
-    "name": "02號_60x85mm",
+    "name": "台塑夾鏈袋｜02號",
+    "originalName": "02號_60x85mm",
     "images": [
       {
         "role": "規格圖",
@@ -491,13 +630,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "02號",
+      "capacity_or_dim": "60x85mm",
+      "quantity": ""
+    }
   },
   {
     "id": "03_夾鏈袋-01_台塑LDPE夾鏈袋-03號_70x100mm",
     "categoryId": "03_夾鏈袋",
     "subcategoryId": "01_台塑LDPE夾鏈袋",
-    "name": "03號_70x100mm",
+    "name": "台塑夾鏈袋｜03號",
+    "originalName": "03號_70x100mm",
     "images": [
       {
         "role": "規格圖",
@@ -507,13 +652,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "03號",
+      "capacity_or_dim": "70x100mm",
+      "quantity": ""
+    }
   },
   {
     "id": "03_夾鏈袋-01_台塑LDPE夾鏈袋-04號_85x120mm",
     "categoryId": "03_夾鏈袋",
     "subcategoryId": "01_台塑LDPE夾鏈袋",
-    "name": "04號_85x120mm",
+    "name": "台塑夾鏈袋｜04號",
+    "originalName": "04號_85x120mm",
     "images": [
       {
         "role": "規格圖",
@@ -523,13 +674,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "04號",
+      "capacity_or_dim": "85x120mm",
+      "quantity": ""
+    }
   },
   {
     "id": "03_夾鏈袋-01_台塑LDPE夾鏈袋-05號_100x140mm",
     "categoryId": "03_夾鏈袋",
     "subcategoryId": "01_台塑LDPE夾鏈袋",
-    "name": "05號_100x140mm",
+    "name": "台塑夾鏈袋｜05號",
+    "originalName": "05號_100x140mm",
     "images": [
       {
         "role": "規格圖",
@@ -539,13 +696,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "05號",
+      "capacity_or_dim": "100x140mm",
+      "quantity": ""
+    }
   },
   {
     "id": "03_夾鏈袋-01_台塑LDPE夾鏈袋-06號_120x170mm",
     "categoryId": "03_夾鏈袋",
     "subcategoryId": "01_台塑LDPE夾鏈袋",
-    "name": "06號_120x170mm",
+    "name": "台塑夾鏈袋｜06號",
+    "originalName": "06號_120x170mm",
     "images": [
       {
         "role": "規格圖",
@@ -555,13 +718,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "06號",
+      "capacity_or_dim": "120x170mm",
+      "quantity": ""
+    }
   },
   {
     "id": "03_夾鏈袋-01_台塑LDPE夾鏈袋-07號_140x200mm",
     "categoryId": "03_夾鏈袋",
     "subcategoryId": "01_台塑LDPE夾鏈袋",
-    "name": "07號_140x200mm",
+    "name": "台塑夾鏈袋｜07號",
+    "originalName": "07號_140x200mm",
     "images": [
       {
         "role": "規格圖",
@@ -571,13 +740,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "07號",
+      "capacity_or_dim": "140x200mm",
+      "quantity": ""
+    }
   },
   {
     "id": "03_夾鏈袋-01_台塑LDPE夾鏈袋-08號_170x240mm",
     "categoryId": "03_夾鏈袋",
     "subcategoryId": "01_台塑LDPE夾鏈袋",
-    "name": "08號_170x240mm",
+    "name": "台塑夾鏈袋｜08號",
+    "originalName": "08號_170x240mm",
     "images": [
       {
         "role": "規格圖",
@@ -587,13 +762,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "08號",
+      "capacity_or_dim": "170x240mm",
+      "quantity": ""
+    }
   },
   {
     "id": "03_夾鏈袋-01_台塑LDPE夾鏈袋-09號_200x280mm",
     "categoryId": "03_夾鏈袋",
     "subcategoryId": "01_台塑LDPE夾鏈袋",
-    "name": "09號_200x280mm",
+    "name": "台塑夾鏈袋｜09號",
+    "originalName": "09號_200x280mm",
     "images": [
       {
         "role": "規格圖",
@@ -603,13 +784,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "09號",
+      "capacity_or_dim": "200x280mm",
+      "quantity": ""
+    }
   },
   {
     "id": "03_夾鏈袋-01_台塑LDPE夾鏈袋-10號_240x340mm",
     "categoryId": "03_夾鏈袋",
     "subcategoryId": "01_台塑LDPE夾鏈袋",
-    "name": "10號_240x340mm",
+    "name": "台塑夾鏈袋｜10號",
+    "originalName": "10號_240x340mm",
     "images": [
       {
         "role": "規格圖",
@@ -619,13 +806,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "10號",
+      "capacity_or_dim": "240x340mm",
+      "quantity": ""
+    }
   },
   {
     "id": "03_夾鏈袋-01_台塑LDPE夾鏈袋-11號_280x400mm",
     "categoryId": "03_夾鏈袋",
     "subcategoryId": "01_台塑LDPE夾鏈袋",
-    "name": "11號_280x400mm",
+    "name": "台塑夾鏈袋｜11號",
+    "originalName": "11號_280x400mm",
     "images": [
       {
         "role": "規格圖",
@@ -635,13 +828,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "11號",
+      "capacity_or_dim": "280x400mm",
+      "quantity": ""
+    }
   },
   {
     "id": "03_夾鏈袋-01_台塑LDPE夾鏈袋-12號_340x450mm",
     "categoryId": "03_夾鏈袋",
     "subcategoryId": "01_台塑LDPE夾鏈袋",
-    "name": "12號_340x450mm",
+    "name": "台塑夾鏈袋｜12號",
+    "originalName": "12號_340x450mm",
     "images": [
       {
         "role": "規格圖",
@@ -651,13 +850,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "12號",
+      "capacity_or_dim": "340x450mm",
+      "quantity": ""
+    }
   },
   {
     "id": "04_病媒防治-01_蟑螂防治-00_蟑螂知識素材",
     "categoryId": "04_病媒防治",
     "subcategoryId": "01_蟑螂防治",
-    "name": "00_蟑螂知識素材",
+    "name": "00",
+    "originalName": "00_蟑螂知識素材",
     "images": [
       {
         "role": "蟑螂危害說明圖",
@@ -667,13 +872,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "00",
+      "capacity_or_dim": "蟑螂知識素材",
+      "quantity": ""
+    }
   },
   {
     "id": "04_病媒防治-01_蟑螂防治-快點絕_0.5百分比凝膠餌劑",
     "categoryId": "04_病媒防治",
     "subcategoryId": "01_蟑螂防治",
-    "name": "快點絕_0.5百分比凝膠餌劑",
+    "name": "快點絕",
+    "originalName": "快點絕_0.5百分比凝膠餌劑",
     "images": [
       {
         "role": "01_包裝與針筒主圖",
@@ -713,13 +924,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "快點絕",
+      "capacity_or_dim": "0.5百分比凝膠餌劑",
+      "quantity": ""
+    }
   },
   {
     "id": "04_病媒防治-02_老鼠防治-一錠鼠_滅鼠餌劑",
     "categoryId": "04_病媒防治",
     "subcategoryId": "02_老鼠防治",
-    "name": "一錠鼠_滅鼠餌劑",
+    "name": "一錠鼠",
+    "originalName": "一錠鼠_滅鼠餌劑",
     "images": [
       {
         "role": "01_包裝主圖",
@@ -759,13 +976,19 @@ export const products = [
       }
     ],
     "specs": [],
-    "shared_images": []
+    "shared_images": [],
+    "parsedSpec": {
+      "size_or_type": "一錠鼠",
+      "capacity_or_dim": "滅鼠餌劑",
+      "quantity": ""
+    }
   },
   {
     "id": "fp-zipper-storage",
     "categoryId": "03_夾鏈袋",
     "subcategoryId": "02_台塑保鮮密實袋",
     "name": "台塑保鮮密實袋",
+    "originalName": "台塑保鮮密實袋",
     "images": [],
     "specs": [
       {
@@ -831,13 +1054,15 @@ export const products = [
         "path": "/assets/03_夾鏈袋/02_台塑保鮮密實袋/00_系列共用/04_系列規格圖__IMG_0281.JPG",
         "order": 4
       }
-    ]
+    ],
+    "parsedSpec": null
   },
   {
     "id": "fp-freezer-bag",
     "categoryId": "03_夾鏈袋",
     "subcategoryId": "03_台塑保鮮冷凍袋",
     "name": "台塑保鮮冷凍袋",
+    "originalName": "台塑保鮮冷凍袋",
     "images": [],
     "specs": [
       {
@@ -903,6 +1128,7 @@ export const products = [
         "path": "/assets/03_夾鏈袋/03_台塑保鮮冷凍袋/00_系列共用/04_系列規格圖__IMG_0283.JPG",
         "order": 4
       }
-    ]
+    ],
+    "parsedSpec": null
   }
 ];

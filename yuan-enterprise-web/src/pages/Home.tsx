@@ -1,46 +1,24 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Truck, ShieldCheck, Factory } from 'lucide-react';
-import { categories } from '../data/store';
+import ProductGrid from '../components/ProductGrid';
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-primary-900 text-white py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6">
-            專業包裝與清潔用品供應商
+      {/* Header Section */}
+      <section className="bg-slate-50 border-b border-slate-100 py-10 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1280px] mx-auto text-center">
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
+            包裝與清潔用品，一次找齊
           </h1>
-          <p className="text-xl md:text-2xl text-primary-100 max-w-3xl mx-auto mb-10">
-            專為餐飲店、企業採購及批發客戶提供高品質免洗袋、清潔袋及病媒防治產品。
+          <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">
+            依用途與規格挑選，加入需求清單後由專人確認報價。
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link to="/products" className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-primary-900 bg-white hover:bg-slate-50 transition">
-              瀏覽商品 <ArrowRight className="ml-2 w-5 h-5" />
-            </Link>
-            <Link to="/quick-order" className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-accent-600 hover:bg-accent-500 transition">
-              快速訂購 (熟客)
-            </Link>
-          </div>
         </div>
       </section>
 
-      {/* Categories Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        <h2 className="text-3xl font-bold text-center mb-12 text-slate-900">供應產品</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {categories.map(cat => (
-            <Link key={cat.id} to={`/products?category=${cat.id}`} className="group block bg-white rounded-xl shadow-sm hover:shadow-md overflow-hidden transition-all border border-slate-100 hover:border-primary-200">
-              <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-slate-100">
-                <img src={cat.cover} alt={cat.name} className="w-full h-48 object-cover object-center group-hover:scale-105 transition-transform duration-300" />
-              </div>
-              <div className="p-4 text-center">
-                <h3 className="text-lg font-bold text-slate-900 group-hover:text-primary-600 transition-colors">{cat.name}</h3>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
+      {/* Main Product Grid */}
+      <ProductGrid />
 
       {/* Features Section */}
       <section className="bg-slate-100 py-16 px-4 sm:px-6 lg:px-8">

@@ -20,9 +20,6 @@ export default function About() {
                 <Building2 className="w-6 h-6 mr-2" />
                 <h2 className="text-2xl font-bold text-slate-900">企業介紹</h2>
               </div>
-              <p className="text-slate-600 mb-4 leading-relaxed">
-                [此區塊保留給真實工廠照片、供應能力及合作方式的編輯位置]
-              </p>
               <p className="text-slate-600 leading-relaxed">
                 我們提供多樣化的產品線，從一般清潔袋、醫療感染袋到各類食品保鮮袋與病媒防治產品，滿足您在營業或工業上的各種需求。我們堅持品質，提供最可靠的產品。
               </p>
