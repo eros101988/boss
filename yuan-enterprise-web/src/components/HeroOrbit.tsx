@@ -135,13 +135,13 @@ export default function HeroOrbit() {
     const tilts = [-5, 3, -2, 4, -3, 2, -4, 3, -2, 5, -3, 2];
     
     // The ellipse is tilted in screen space; depth faces the lower-right foreground.
-    const rx = w * (mobile ? 0.29 : 0.385);
-    const ry = h * (mobile ? 0.32 : 0.335);
-    const tilt = -0.30;
+    const rx = mobile ? w * 0.38 : w * 0.385; // slightly taller on mobile relative to width
+    const ry = mobile ? Math.max(200, h * 0.4) : h * 0.335; // taller orbit for mobile
+    const tilt = mobile ? -0.12 : -0.30; // user requested -0.12 rad (~ -7 deg) for mobile
     
     // The original base size was for 16:10 canvases (600x375). 
-    // We are using 1:1 squares now, so we will use the base width as both width and height.
-    const base = mobile ? Math.min(84, w * 0.205) : Math.min(148, w * 0.11);
+    // We are using 1:1 squares now. For mobile, user requested Math.max(72, Math.min(94, w * 0.225))
+    const base = mobile ? Math.max(72, Math.min(94, w * 0.225)) : Math.min(148, w * 0.11);
 
     return displayItems.map((item, i) => {
       if (i >= n) return null; // hide items beyond n
@@ -154,11 +154,20 @@ export default function HeroOrbit() {
       const y = h * 0.49 + x0 * Math.sin(tilt) + y0 * Math.cos(tilt);
       
       const depth = (Math.sin(theta + 0.62) + 1) / 2;
-      const scale = 0.54 + 0.90 * Math.pow(depth, 1.5);
       
-      const roll = tilts[i] + 1.8 * Math.sin(theta);
-      const pitch = -3 * Math.sin(theta);
-      const yaw = 6 * Math.cos(theta);
+      // user requested for mobile: 0.82 + 0.33 * Math.pow(depth, 1.5)
+      const scale = mobile 
+        ? 0.82 + 0.33 * Math.pow(depth, 1.5)
+        : 0.54 + 0.90 * Math.pow(depth, 1.5);
+      
+      // limit tilt angles for mobile as requested (±4 deg)
+      const rollMultiplier = mobile ? 0.5 : 1;
+      const pitchMultiplier = mobile ? 0.5 : 1;
+      const yawMultiplier = mobile ? 0.5 : 1;
+
+      const roll = (tilts[i] + 1.8 * Math.sin(theta)) * rollMultiplier;
+      const pitch = (-3 * Math.sin(theta)) * pitchMultiplier;
+      const yaw = (6 * Math.cos(theta)) * yawMultiplier;
       
       const zIndex = Math.round(10 + depth * 10);
 
@@ -199,15 +208,22 @@ export default function HeroOrbit() {
       
       {/* Central Brand Text - Safely in the middle */}
       <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-auto flex flex-col items-center text-center w-full max-w-[240px] sm:max-w-[320px] md:max-w-[450px]"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-auto flex flex-col items-center text-center w-full max-w-[280px] sm:max-w-[320px] md:max-w-[450px] p-3"
       >
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] xl:text-[5.5rem] font-extrabold text-slate-900 leading-tight mb-2 tracking-tight whitespace-nowrap">
-          侑安國際
+        <h1 className="text-[32px] leading-[1.1] sm:text-5xl md:text-6xl lg:text-[5rem] xl:text-[5.5rem] font-extrabold text-slate-900 mb-2 tracking-tight">
+          {mobile ? (
+            <>
+              <div>侑安</div>
+              <div>國際</div>
+            </>
+          ) : (
+            <span className="whitespace-nowrap">侑安國際</span>
+          )}
         </h1>
         <h2 className="text-base sm:text-xl md:text-2xl font-bold text-slate-700 mb-4 whitespace-nowrap">
           包裝・清潔・日常耗材
         </h2>
-        <p className="text-xs sm:text-base text-slate-600 mb-6 sm:mb-8 max-w-[200px] sm:max-w-sm mx-auto">
+        <p className="text-sm sm:text-base text-slate-600 mb-6 sm:mb-8 max-w-[200px] sm:max-w-sm mx-auto">
           從日常備品到營業所需，找到合適的用品。
         </p>
         
